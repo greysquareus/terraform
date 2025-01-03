@@ -6,7 +6,8 @@ provider  "aws" {
     ami                    = "ami-0e2c8caa4b6378d8c"
     instance_type          = "t2.micro"
     vpc_security_group_ids = [aws_security_group.greysquare.id]
-    user_data              = file("nginx.sh")
+    user_data               = file("nginx.sh")
+    depends_on = [aws_instance.Ubuntu_db, aws_instance.Ubuntu_app]
 
     tags = {
         Name  = "web_server"
@@ -18,6 +19,7 @@ provider  "aws" {
     ami                    = "ami-0e2c8caa4b6378d8c"
     instance_type          = "t2.micro"
     vpc_security_group_ids = [aws_security_group.greysquare.id]
+    depends_on = [aws_instance.Ubuntu_db]
 
     tags = {
         Name  = "app_server"
